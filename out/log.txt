@@ -1,0 +1,1 @@
+23-tammik.-2021 18:36:47: The size of the file is: 862.0 kb.. The function took 8 ms to execute
