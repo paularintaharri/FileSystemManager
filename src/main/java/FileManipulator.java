@@ -42,11 +42,9 @@ public class FileManipulator {
             long startTime = System.currentTimeMillis();
             LineNumberReader reader = new LineNumberReader(new FileReader(path));
             int count = 0;
-            String lineRead = "";
 
-            while ((lineRead = reader.readLine()) != null);
+            while ((reader.readLine()) != null);
                 count = reader.getLineNumber();
-                reader.close();
                 String result = "File includes " + count + " lines";
                 System.out.println(result);
                 reader.close();
@@ -66,7 +64,6 @@ public class FileManipulator {
 
     //Search if the specific word exists on the file
     public void searchWord(String path){
-
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             long startTime = System.currentTimeMillis();
             Scanner scanner = new Scanner(System.in);
@@ -77,22 +74,25 @@ public class FileManipulator {
             System.out.println("Write the word what you want to serch");
             String input = scanner.nextLine();
 
-            //reads the file untill the word is found
-            while((word = br.readLine()) != null){                
-                if(word.toLowerCase().contains(input.toLowerCase())) { 
-                    check = true;
+            //reads the file until the word is found
+            try {
+                while ((word = br.readLine()) != null) {
+                    if (word.toLowerCase().contains(input.toLowerCase())) {
+                        check = true;
+                    }
                 }
+                if (check) {
+                    result = "Word was found";
+                    System.out.println(result);
+                } else if (!check) {
+                    result = "Word was not found";
+                    System.out.println(result);
+                }
+                long endTime = System.currentTimeMillis();
+                logger.logWriter(result, endTime - startTime);
+            }finally {
+                br.close();
             }
-            if(check) {
-                result = "Word was found";
-                System.out.println(result);
-            } else if (!check) {
-                result = "Word was not found";
-                System.out.println(result);    
-            }     
-            long endTime = System.currentTimeMillis();
-            logger.logWriter(result, endTime-startTime);
-            br.close();
         } catch (FileNotFoundException e) {
             System.out.println("The file was not found.\n"+e.getMessage());
             logger.errorWriter();
@@ -102,35 +102,38 @@ public class FileManipulator {
         }  
     }
 
-    //Count how many times a word exists on the fiel
+    //Count how many times a word exists on the file
     public void countWord(String path){
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             long startTime = System.currentTimeMillis();
             Scanner scanner = new Scanner(System.in);
-            boolean check = false;
             int count = 0;
-            String word;
             String result = "";
 
             System.out.println("Write the word what you want to count");
             String input = scanner.nextLine();
 
-            //loops the file and counts the words
-            while((word = br.readLine()) != null){                
-                if(word.toLowerCase().contains(input.toLowerCase())) { 
-                    count++;
+            try {
+                //loops the file and counts the words
+                while ((result = br.readLine()) != null) {
+                    for (String word : result.split("\\W+")) {
+                        if (word.toLowerCase().contains(input.toLowerCase())) {
+                            count++;
+                        }
+                    }
                 }
+                if (count > 0) {
+                    result = "Word was found " + count + " times";
+                    System.out.println(result);
+                } else if (count == 0) {
+                    result = "Word was not found";
+                    System.out.println(result);
+                }
+                long endTime = System.currentTimeMillis();
+                logger.logWriter(result, endTime - startTime);
+            }finally {
+                br.close();
             }
-            if(count > 0) {
-                result = "Word was found " + count + " times";
-                System.out.println(result);
-            } else if (count == 0) {
-                result = "Word was not found";
-                System.out.println(result);    
-            }  
-            long endTime = System.currentTimeMillis();
-            logger.logWriter(result, endTime-startTime);   
-            br.close();
         } catch (FileNotFoundException e) {
             System.out.println("The file was not found.\n"+e.getMessage());
             logger.errorWriter();
@@ -139,5 +142,4 @@ public class FileManipulator {
             logger.errorWriter();      
         } 
     }
-
 }

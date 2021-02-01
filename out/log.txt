@@ -1,1 +1,5 @@
 23-tammik.-2021 18:36:47: The size of the file is: 862.0 kb.. The function took 8 ms to execute
+25-tammik.-2021 13:11:51: Word was found 4192 times. The function took 4568 ms to execute
+01-helmik.-2021 14:59:16: Word was found 119 times. The function took 2417 ms to execute
+01-helmik.-2021 15:00:09: Word was found. The function took 1645 ms to execute
+01-helmik.-2021 15:00:13: Word was found 6057 times. The function took 1649 ms to execute

@@ -12,15 +12,15 @@ public class LogHandler {
     File file = new File("../out/log.txt");
 
     //Writes comment to the log.txt file
-    public void logWriter(String text, long extime){
+    public void logWriter(String text, long exTime){
         //current time
-        LocalDateTime locallDateTime = LocalDateTime.now();
+        LocalDateTime localDateTime = LocalDateTime.now();
         try {
             FileWriter fr = new FileWriter(file, true);
             BufferedWriter bf = new BufferedWriter(fr);
             PrintWriter printWriter = new PrintWriter(bf);
-            printWriter.print(locallDateTime.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu HH:mm:ss")) +": " + 
-                text + ". The function took "+ extime + " ms to execute\n");
+            printWriter.print(localDateTime.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu HH:mm:ss")) +": " + 
+                text + ". The function took "+ exTime + " ms to execute\n");
             printWriter.close();
             bf.close();
             fr.close();            
@@ -31,10 +31,10 @@ public class LogHandler {
 
     //Writes the error message to the log.txt file
     public void errorWriter(){
-        LocalDateTime locallDateTime = LocalDateTime.now();
+        LocalDateTime localDateTime = LocalDateTime.now();
         try {
             PrintWriter printWriter = new PrintWriter(file);
-            printWriter.write(locallDateTime.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu HH:mm:ss")) + "ERROR!\n");
+            printWriter.write(localDateTime.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu HH:mm:ss")) + "ERROR!\n");
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
